@@ -1,0 +1,10 @@
+name: Deploy
+on: push
+env:
+  RUNNER: self-hosted
+jobs:
+  deploy:
+    runs-on: ${{ env.RUNNER }}
+    steps:
+      - name: test
+        run: pwd
