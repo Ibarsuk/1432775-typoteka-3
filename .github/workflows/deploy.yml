@@ -4,7 +4,7 @@ env:
   RUNNER: self-hosted
 jobs:
   deploy:
-    runs-on: ${{ env.RUNNER }}
+    runs-on: $RUNNER
     steps:
       - name: test
         run: pwd
