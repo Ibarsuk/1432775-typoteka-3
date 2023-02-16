@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14.1
+    env_file:
+      - ./.env.postgres
+    volumes:
+      - "$HOME/data/typoteka/database:/var/lib/postgresql/data"
+
+  node:
+    build: .
+    ports:
+      - "80:8080"
+      - "3000:3000"
+    depends_on:
+      - postgres
+    volumes:
+      - "$HOME/data/typoteka/logs:/app/logs"
+      - "$HOME/data/typoteka/upload:/app/src/express/upload"

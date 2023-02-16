@@ -16,16 +16,14 @@ const initdb = async (
     defineModels(sequelize);
   await sequelize.sync({force: true});
 
-  await Promise.all([
-    Category.bulkCreate(categories),
-    User.bulkCreate(users),
-    Article.bulkCreate(notes),
-    Photo.bulkCreate(photos),
-    Comment.bulkCreate(comments),
-    ArticleCategory.bulkCreate(notesCategories),
-    Role.bulkCreate(roles),
-    UserRole.bulkCreate(usersRoles)
-  ]);
+  await Category.bulkCreate(categories);
+  await User.bulkCreate(users);
+  await Article.bulkCreate(notes);
+  await Photo.bulkCreate(photos);
+  await Comment.bulkCreate(comments);
+  await ArticleCategory.bulkCreate(notesCategories);
+  await Role.bulkCreate(roles);
+  await UserRole.bulkCreate(usersRoles);
 };
 
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {

@@ -1,0 +1,16 @@
+node_modules
+npm-debug.log
+.dockerfile
+.dockerignore
+.git
+.gitignore
+.editorconfig
+.eslintrc.yml
+.eslintignore
+.gitattributes
+contributing.md
+enviroments.md
+queries.sql
+readme.md
+schema.sql
+tables.ndml2
