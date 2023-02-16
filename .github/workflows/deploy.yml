@@ -1,10 +1,8 @@
 name: Deploy
 on: push
-env:
-  RUNNER: 'self-hosted'
 jobs:
   deploy:
-    runs-on: ${{env.RUNNER}}
+    runs-on: self-hosted
     steps:
       - name: test
         run: pwd
