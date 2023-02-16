@@ -9,11 +9,7 @@ jobs:
         with:
           ref: production
           clean: false
-      - name: Deps caching
-        run: pwd
-        uses: actions/cache@v3
-        with:
-          path: 
       - name: Deps installing
+        run: echo "here will be installing"
         
 
