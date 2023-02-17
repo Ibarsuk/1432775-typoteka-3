@@ -16,13 +16,13 @@ jobs:
       JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
       JWT_ACCESS_SECRET: ${{ secrets.JWT_ACCESS_SECRET }}
     steps:
-      - name: Stop previos app version
-        run: docker compose stop
       - name: Coping code
         uses: actions/checkout@v3
         with:
           ref: production
           clean: false
+      - name: Stop previos app version
+        run: docker compose stop
       - name: Linting
         run: npm run eslint
       - name: Deps installing
