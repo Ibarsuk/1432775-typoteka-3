@@ -2,11 +2,13 @@
 
 const express = require(`express`);
 const Sequelize = require(`sequelize`);
+const http = require(`http`);
 const {initdb} = require(`./sequelize`);
 const testData = require(`../service/test-data`);
 const usersDefiner = require(`../service/api/users`);
 const UserService = require(`../service/data-service/user`);
 const TokenService = require(`../service/data-service/token`);
+const socket = require(`../utils/socket`);
 
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);
@@ -67,6 +69,10 @@ const createTestApi = async (routeDefiner, ...services) => {
   await initdb(mockdb, testData);
 
   const app = express();
+  const server = http.createServer(app);
+  const io = socket(server);
+
+  app.io = io;
   app.use(express.json());
 
   usersDefiner(app, new UserService(mockdb), new TokenService(mockdb));
