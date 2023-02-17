@@ -8,12 +8,8 @@ defaults:
 jobs:
   deploy:
     runs-on: self-hosted
+    enviroment: production
     env:
-      BACK_PORT: ${{ vars.BACK_PORT }}
-      FRONT_PORT: ${{ vars.FRONT_PORT }}
-      API_HOST: ${{ vars.API_HOST }}
-      DB_HOST: ${{ vars.DB_HOST }}
-      DB_PORT: ${{ vars.DB_PORT }}
       DB_NAME: ${{ secrets.DB_NAME }}
       DB_USER: ${{ secrets.DB_USER }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
