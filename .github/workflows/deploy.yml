@@ -27,3 +27,5 @@ jobs:
         run: npm i
       - name: Testing
         run: npm run jest
+      - name: App running
+        run: npm run start
