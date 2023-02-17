@@ -1,5 +1,10 @@
 name: Deploy
-on: [push, workflow_dispatch]
+on: 
+  push:
+  workflow_dispatch:
+defaults:
+  run:
+    shell: bash -ieo pipefail {0}
 jobs:
   deploy:
     runs-on: self-hosted
@@ -10,6 +15,4 @@ jobs:
           ref: production
           clean: false
       - name: Deps installing
-        run: echo "here will be installing"
-        
-
+        run: npm i 
