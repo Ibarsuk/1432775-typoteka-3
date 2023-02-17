@@ -1,5 +1,5 @@
 name: Deploy
-on: 
+on:
   push:
   workflow_dispatch:
 defaults:
@@ -16,7 +16,7 @@ jobs:
           clean: false
       - name: Linting
         run: npm run eslint
+      - name: Deps installing
+        run: npm i
       - name: Testing
         run: npm run jest
-      - name: Deps installing
-        run: npm i 
