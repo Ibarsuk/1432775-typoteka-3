@@ -19,10 +19,10 @@ jobs:
       - name: Coping code
         uses: actions/checkout@v3
         with:
-          ref: production
+          ref: github-actions
           clean: false
       - name: Stop previos app version
-        run: docker compose stop
+        run: echo $DB_NAME && docker compose stop
       - name: Linting
         run: npm run eslint
       - name: Deps installing
