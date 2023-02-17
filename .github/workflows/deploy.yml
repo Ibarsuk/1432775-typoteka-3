@@ -1,0 +1,29 @@
+name: Deploy
+on:
+  push:
+  workflow_dispatch:
+defaults:
+  run:
+    shell: bash -ieo pipefail {0}
+jobs:
+  deploy:
+    runs-on: self-hosted
+    environment: production
+    env:
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
+      JWT_ACCESS_SECRET: ${{ secrets.JWT_ACCESS_SECRET }}
+    steps:
+      - name: Coping code
+        uses: actions/checkout@v3
+        with:
+          ref: production
+          clean: false
+      - name: Linting
+        run: npm run eslint
+      - name: Deps installing
+        run: npm i
+      - name: Testing
+        run: npm run jest
