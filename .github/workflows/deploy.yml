@@ -8,6 +8,17 @@ defaults:
 jobs:
   deploy:
     runs-on: self-hosted
+    env:
+      BACK_PORT: 3000
+      FRONT_PORT: 8080
+      API_HOST: 127.0.0.1
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: typoteka
+      DB_USER: user
+      DB_PASSWORD: pass
+      JWT_REFRESH_SECRET: jvaoe126
+      JWT_ACCESS_SECRET: jfa8Q3G
     steps:
       - name: Coping code
         uses: actions/checkout@v3
