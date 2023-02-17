@@ -16,6 +16,8 @@ jobs:
       JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
       JWT_ACCESS_SECRET: ${{ secrets.JWT_ACCESS_SECRET }}
     steps:
+      - name: Stop previos app version
+        run: docker compose stop
       - name: Coping code
         uses: actions/checkout@v3
         with:
@@ -27,3 +29,5 @@ jobs:
         run: npm i
       - name: Testing
         run: npm run jest
+      - name: App running
+        run: docker compose up -d

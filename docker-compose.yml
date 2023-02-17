@@ -5,6 +5,10 @@ services:
     image: postgres:14.1
     env_file:
       - ./.env.postgres
+    enviroments:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - "$HOME/data/typoteka/database:/var/lib/postgresql/data"
 
