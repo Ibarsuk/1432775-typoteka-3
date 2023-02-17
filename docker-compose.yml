@@ -3,8 +3,6 @@ version: '3.8'
 services:
   postgres:
     image: postgres:14.1
-    env_file:
-      - ./.env.postgres
     enviroments:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
