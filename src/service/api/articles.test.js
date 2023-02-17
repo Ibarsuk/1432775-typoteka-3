@@ -214,7 +214,7 @@ describe(`/articles route works correctly with comments`, () => {
       );
 
       expect(res.statusCode).toBe(StatusCode.CREATED);
-      expect(res.body.articleId).toBe(`2`);
+      expect(res.body.articleId).toBe(2);
     });
 
     it(`Returns 404 if given article doesn't exist`, async () => {
