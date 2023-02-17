@@ -10,11 +10,11 @@ jobs:
     runs-on: self-hosted
     environment: production
     env:
-      BACK_PORT: ${{ env.BACK_PORT }}
-      FRONT_PORT: ${{ env.FRONT_PORT }}
-      API_HOST: ${{ env.API_HOST }}
-      DB_HOST: ${{ env.DB_HOST }}
-      DB_PORT: ${{ env.DB_PORT }}
+      BACK_PORT: ${{ vars.BACK_PORT }}
+      FRONT_PORT: ${{ vars.FRONT_PORT }}
+      API_HOST: ${{ vars.API_HOST }}
+      DB_HOST: ${{ vars.DB_HOST }}
+      DB_PORT: ${{ vars.DB_PORT }}
       DB_NAME: ${{ secrets.DB_NAME }}
       DB_USER: ${{ secrets.DB_USER }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
