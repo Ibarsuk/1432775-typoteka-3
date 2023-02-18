@@ -35,4 +35,4 @@ jobs:
       - name: Testing
         run: npm run jest
       - name: App running
-        run: docker compose up -d
+        run: docker compose up -d --build
