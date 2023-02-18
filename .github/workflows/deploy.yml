@@ -34,7 +34,7 @@ jobs:
         run: npm i
       - name: Testing
         run: npm run jest
-      -name: Containers building
+      - name: Containers building
         run: docker compose build
       - name: App running
         run: docker compose up -d --restart unless-stopped
