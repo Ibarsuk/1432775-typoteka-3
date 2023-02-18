@@ -27,12 +27,14 @@ jobs:
           ref: github-actions
           clean: false
       - name: Stop previos app version
-        run: echo $DB_NAME && docker compose stop
+        run: docker compose stop
       - name: Linting
         run: npm run eslint
       - name: Deps installing
         run: npm i
       - name: Testing
         run: npm run jest
+      -name: Containers building
+        run: docker compose build
       - name: App running
-        run: docker compose up -d --build
+        run: docker compose up -d --restart unless-stopped
