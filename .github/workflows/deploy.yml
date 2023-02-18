@@ -35,6 +35,6 @@ jobs:
       - name: Containers building
         run: docker compose build
       - name: Tests
-        run: docker compose up -f docker-compose-test.yml
+        run: docker compose -f docker-compose-test.yml up
       - name: App running
         run: docker compose up -d
