@@ -1,0 +1,6 @@
+services:
+  test:
+    extends:
+      file: docker-compose.yml
+      service: node
+    command: npm run test
