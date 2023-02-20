@@ -1,5 +1,5 @@
 services:
-  node:
+  test:
     extends:
       file: docker-compose.yml
       service: node
