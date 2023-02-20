@@ -1,6 +1,8 @@
 name: Deploy
 on:
   push:
+    branches:
+      - production
   workflow_dispatch:
 defaults:
   run:
@@ -10,6 +12,11 @@ jobs:
     runs-on: self-hosted
     environment: production
     env:
+      BACK_PORT: ${{ vars.BACK_PORT }}
+      FRONT_PORT: ${{ vars.FRONT_PORT }}
+      API_HOST: ${{ vars.API_HOST }}
+      DB_HOST: ${{ vars.DB_HOST }}
+      DB_PORT: ${{ vars.DB_PORT }}
       DB_NAME: ${{ secrets.DB_NAME }}
       DB_USER: ${{ secrets.DB_USER }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
@@ -21,13 +28,7 @@ jobs:
         with:
           ref: production
           clean: false
-      - name: Stop previos app version
-        run: docker compose stop
-      - name: Linting
-        run: npm run eslint
-      - name: Deps installing
-        run: npm i
-      - name: Testing
-        run: npm run jest
+      - name: Tests
+        run: docker compose -f docker-compose-test.yml up --build
       - name: App running
-        run: docker compose up -d
+        run: docker compose -f docker-compose.yml -f docker-compose-prod.yml up --build -d
