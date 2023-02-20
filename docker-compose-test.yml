@@ -3,7 +3,4 @@ services:
     extends:
       file: docker-compose.yml
       service: node
-    ports: []
-    depends_on: []
-    volumes: []
     command: npm run test
