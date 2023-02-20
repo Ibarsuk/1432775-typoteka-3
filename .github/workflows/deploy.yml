@@ -1,6 +1,8 @@
 name: Deploy
 on:
   push:
+    branches:
+      - production
   workflow_dispatch:
 defaults:
   run:
@@ -24,9 +26,9 @@ jobs:
       - name: Coping code
         uses: actions/checkout@v3
         with:
-          ref: github-actions
+          ref: production
           clean: false
       - name: Tests
         run: docker compose -f docker-compose-test.yml up --build
       - name: App running
-        run: docker compose -f docker-compose.yml -f docker-compose-prod.yml up --build
+        run: docker compose -f docker-compose.yml -f docker-compose-prod.yml up --build -d
