@@ -16,6 +16,13 @@ module.exports = (app, commentService, articleService) => {
         #swagger.path = '/my'
         #swagger.tags = ['My']
         #swagger.summary = 'Get user's articles'
+        #swagger.responses[200] = {
+            description: "Personal articles",
+            schema: { $ref: '#/definitions/Articles' }
+        }
+        #swagger.responses[403] = {
+            description: "Forbidden",
+        }
     */
     const myArticles = await articleService.findUserArticles(res.user.id);
     res.status(StatusCode.OK).json(myArticles);
@@ -26,6 +33,13 @@ module.exports = (app, commentService, articleService) => {
         #swagger.path = '/my/comments'
         #swagger.tags = ['My']
         #swagger.summary = 'Get user's comments'
+        #swagger.responses[200] = {
+            description: "Personal comments",
+            schema: { $ref: '#/definitions/Comments' }
+        }
+        #swagger.responses[403] = {
+            description: "Forbidden",
+        }
     */
     const myComments = await commentService.findAll();
     res.status(StatusCode.OK).json(myComments);

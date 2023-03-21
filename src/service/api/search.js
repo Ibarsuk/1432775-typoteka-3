@@ -13,6 +13,13 @@ module.exports = (app, searchService) => {
         #swagger.path = '/search'
         #swagger.tags = ['Search']
         #swagger.summary = 'Find article'
+        #swagger.responses[200] = {
+            description: "Found articles",
+            schema: { $ref: '#/definitions/Articles' }
+        }
+        #swagger.responses[400] = {
+            description: "Empty search string",
+        }
     */
     const {query} = req.query;
 

@@ -2,7 +2,13 @@
 
 const swaggerAutogen = require(`swagger-autogen`)();
 const path = require(`path`);
+const j2s = require(`joi-to-swagger`);
+
 const {filesToDoc} = require(`../../const`);
+const {noteSchema, noteUpdateSchema} = require(`../validation-schemas/note`);
+const {newCategorySchema} = require(`../validation-schemas/category`);
+const {commentSchema} = require(`../validation-schemas/comment`);
+const {newUserSchema, loginSchema} = require(`../validation-schemas/user`);
 
 const doc = {
   info: {
@@ -13,6 +19,37 @@ const doc = {
   host: `localhost:3000`,
   basePath: `/api`,
   schemes: [`http`],
+  definitions: {
+    Article: j2s(noteSchema).swagger,
+    Articles: [j2s(noteSchema).swagger],
+    ArticleUpdate: j2s(noteUpdateSchema).swagger,
+    Category: j2s(newCategorySchema).swagger,
+    Categories: [j2s(newCategorySchema).swagger],
+    Comment: j2s(commentSchema).swagger,
+    Comments: [j2s(commentSchema).swagger],
+    User: j2s(newUserSchema).swagger,
+    Login: j2s(loginSchema).swagger,
+    Tokens: {
+      type: `object`,
+      properties: {
+        access: {
+          type: `string`,
+          description: `Access token`,
+        },
+        refresh: {
+          type: `string`,
+          description: `Refresh token`,
+        },
+      },
+    },
+    LoginResponse: {
+      type: `object`,
+      properties: {
+        tokens: {$ref: `#/definitions/Tokens`},
+        user: {$ref: `#/definitions/User`},
+      },
+    }
+  },
   tags: [
     {
       name: `Articles`,

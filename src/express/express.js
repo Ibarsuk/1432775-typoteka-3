@@ -29,6 +29,7 @@ app.use(
     swaggerUi.serve,
     swaggerUi.setup(swaggerDocument, {
       explorer: true,
+      openapi: `3.0.0`,
     })
 );
 app.use(express.static(path.resolve(__dirname, ClientDir.PUBLIC)));

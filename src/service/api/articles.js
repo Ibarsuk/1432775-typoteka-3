@@ -22,6 +22,10 @@ module.exports = (app, notesService, commentsService) => {
         #swagger.path = '/articles'
         #swagger.tags = ['Articles']
         #swagger.summary = 'Get all articles'
+        #swagger.responses[200] = {
+            description: "Found articles",
+            schema: { $ref: '#/definitions/Articles' }
+        }
     */
     const {offset, limit, fromCategoryId} = req.query;
     const notes = await notesService.findAll({
@@ -37,6 +41,16 @@ module.exports = (app, notesService, commentsService) => {
         #swagger.path = '/articles'
         #swagger.tags = ['Articles']
         #swagger.summary = 'Create new article'
+        #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'Article obj',
+                schema: { $ref: '#/definitions/Article' }
+        }
+
+        #swagger.responses[200] = {
+            description: "Some description... OpenAPI 3.x",
+            schema: { $ref: '#/definitions/Article' }
+        }
     */
       `/`,
       authJwt(Role.ADMIN),
@@ -52,6 +66,10 @@ module.exports = (app, notesService, commentsService) => {
         #swagger.path = '/articles/commented'
         #swagger.tags = ['Articles']
         #swagger.summary = 'Get most commented articles'
+        #swagger.responses[200] = {
+            description: "Most commented articles",
+            schema: { $ref: '#/definitions/Articles' }
+        }
     */
     const {limit} = req.query;
     const notes = await notesService.findMostCommented({
@@ -65,6 +83,10 @@ module.exports = (app, notesService, commentsService) => {
         #swagger.path = '/articles/{:id}'
         #swagger.tags = ['Articles']
         #swagger.summary = 'Get article by id'
+        #swagger.responses[200] = {
+            description: "Found article by id",
+            schema: { $ref: '#/definitions/Article' }
+        }
     */
       `/:id`,
       [validateParams, checkExistance(notesService)],
@@ -79,6 +101,15 @@ module.exports = (app, notesService, commentsService) => {
         #swagger.path = '/articles/{:id}'
         #swagger.tags = ['Articles']
         #swagger.summary = 'Edit article by id'
+        #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'Article update obj',
+                schema: { $ref: '#/definitions/ArticleUpdate' }
+        }
+        #swagger.responses[200] = {
+            description: "Updated article",
+            schema: { $ref: '#/definitions/Article' }
+        }
     */
       `/:id`,
       [
@@ -99,6 +130,10 @@ module.exports = (app, notesService, commentsService) => {
         #swagger.path = '/articles/{:id}'
         #swagger.tags = ['Articles']
         #swagger.summary = 'Delete article by id'
+        #swagger.responses[200] = {
+            description: "Deleted article",
+            schema: { $ref: '#/definitions/Article' }
+        }
     */
     const {id} = req.params;
     const deletedNote = await notesService.drop(id);
@@ -118,6 +153,15 @@ module.exports = (app, notesService, commentsService) => {
         #swagger.path = '/articles/{:id}/comments'
         #swagger.tags = ['Articles']
         #swagger.summary = 'Create comment for article'
+        #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'Comment obj',
+                schema: { $ref: '#/definitions/Comment' }
+        }
+        #swagger.responses[200] = {
+            description: "Created comment",
+            schema: { $ref: '#/definitions/Comment' }
+        }
     */
         const {id} = req.params;
         const newComment = await commentsService.create(
@@ -140,6 +184,12 @@ module.exports = (app, notesService, commentsService) => {
         #swagger.path = '/articles/{:articleId}/comments/{:commentId}'
         #swagger.tags = ['Articles']
         #swagger.summary = 'Delete comment for article'
+        #swagger.responses[200] = {
+            description: "Comment deleted",
+        }
+        #swagger.responses[403] = {
+            description: "Forbidden",
+        }
     */
         const {commentId} = req.params;
         const comment = await commentsService.findOne(commentId);

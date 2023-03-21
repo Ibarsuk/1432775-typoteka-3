@@ -13,6 +13,10 @@ module.exports = (app, commentService) => {
         #swagger.path = '/comments/latest'
         #swagger.tags = ['Comments']
         #swagger.summary = 'Get latest comments'
+        #swagger.responses[200] = {
+            description: "Latest comments",
+            schema: { $ref: '#/definitions/Comments' }
+        }
     */
     const {limit} = req.query;
     const comments = await commentService.findLatestComments({limit});
