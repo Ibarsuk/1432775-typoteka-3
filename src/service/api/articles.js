@@ -46,11 +46,13 @@ module.exports = (app, notesService, commentsService) => {
                 description: 'Article obj',
                 schema: { $ref: '#/definitions/Article' }
         }
-
         #swagger.responses[200] = {
             description: "Some description... OpenAPI 3.x",
             schema: { $ref: '#/definitions/Article' }
         }
+        #swagger.security = [{
+               "bearerAuth": []
+        }]
     */
       `/`,
       authJwt(Role.ADMIN),
@@ -110,6 +112,9 @@ module.exports = (app, notesService, commentsService) => {
             description: "Updated article",
             schema: { $ref: '#/definitions/Article' }
         }
+        #swagger.security = [{
+               "bearerAuth": []
+        }]
     */
       `/:id`,
       [
@@ -134,6 +139,9 @@ module.exports = (app, notesService, commentsService) => {
             description: "Deleted article",
             schema: { $ref: '#/definitions/Article' }
         }
+        #swagger.security = [{
+               "bearerAuth": []
+        }]
     */
     const {id} = req.params;
     const deletedNote = await notesService.drop(id);
@@ -162,6 +170,9 @@ module.exports = (app, notesService, commentsService) => {
             description: "Created comment",
             schema: { $ref: '#/definitions/Comment' }
         }
+        #swagger.security = [{
+               "bearerAuth": []
+        }]
     */
         const {id} = req.params;
         const newComment = await commentsService.create(
@@ -190,6 +201,9 @@ module.exports = (app, notesService, commentsService) => {
         #swagger.responses[403] = {
             description: "Forbidden",
         }
+        #swagger.security = [{
+               "bearerAuth": []
+        }]
     */
         const {commentId} = req.params;
         const comment = await commentsService.findOne(commentId);

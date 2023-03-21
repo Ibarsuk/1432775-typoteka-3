@@ -1,6 +1,6 @@
 "use strict";
 
-const swaggerAutogen = require(`swagger-autogen`)();
+const swaggerAutogen = require(`swagger-autogen`);
 const path = require(`path`);
 const j2s = require(`joi-to-swagger`);
 
@@ -19,6 +19,13 @@ const doc = {
   host: `localhost:3000`,
   basePath: `/api`,
   schemes: [`http`],
+  securityDefinitions: {
+    bearerAuth: {
+      type: `http`,
+      scheme: `bearer`,
+      bearerFormat: `JWT`,
+    },
+  },
   definitions: {
     Article: j2s(noteSchema).swagger,
     Articles: [j2s(noteSchema).swagger],
@@ -48,7 +55,7 @@ const doc = {
         tokens: {$ref: `#/definitions/Tokens`},
         user: {$ref: `#/definitions/User`},
       },
-    }
+    },
   },
   tags: [
     {
@@ -79,10 +86,12 @@ const doc = {
 };
 
 const outputFile = path.join(__dirname, `../../../swagger.json`);
-const endpointsFiles = filesToDoc.map((file) => path.join(__dirname, `../api/${file}`));
+const endpointsFiles = filesToDoc.map((file) =>
+  path.join(__dirname, `../api/${file}`)
+);
 
-const run = (cb = ()=>{}) => {
-  swaggerAutogen(outputFile, endpointsFiles, doc).then(cb);
+const run = (cb = () => {}) => {
+  swaggerAutogen({openapi: `3.0.0`})(outputFile, endpointsFiles, doc).then(cb);
 };
 
 module.exports = {

@@ -14,7 +14,7 @@
     "eslint": "eslint --ext .js src/",
     "jest": "jest",
     "filldb": "node src/service/service.js --filldb 20",
-    "genDocs": "node src/service/service.js --swagger"
+    "gen-docs": "node src/service/service.js --swagger"
   },
   "repository": {
     "type": "git",

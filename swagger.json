@@ -1,12 +1,15 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
     "title": "Typoteka API",
     "description": "Api docs for typoteka personal blog",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
-  "basePath": "/api",
+  "servers": [
+    {
+      "url": "http://localhost:3000/api"
+    }
+  ],
   "tags": [
     {
       "name": "Articles",
@@ -33,9 +36,6 @@
       "description": "Users endpoints"
     }
   ],
-  "schemes": [
-    "http"
-  ],
   "paths": {
     "/articles": {
       "get": {
@@ -48,20 +48,42 @@
           {
             "name": "offset",
             "in": "query",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "limit",
             "in": "query",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "fromCategoryId",
             "in": "query",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Found articles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Articles"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Articles"
+                }
+              }
+            }
+          }
+        }
       },
       "post": {
         "tags": [
@@ -69,8 +91,38 @@
         ],
         "summary": "Create new article",
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Article obj",
+            "schema": {
+              "$ref": "#/components/schemas/Article"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Some description... OpenAPI 3.x",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Article"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Article"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/articles/commented": {
@@ -84,10 +136,28 @@
           {
             "name": "limit",
             "in": "query",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Most commented articles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Articles"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Articles"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/articles/{:id}": {
@@ -102,10 +172,28 @@
             "name": ":id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Found article by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Article"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Article"
+                }
+              }
+            }
+          }
+        }
       },
       "put": {
         "tags": [
@@ -118,10 +206,41 @@
             "name": ":id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Article update obj",
+            "schema": {
+              "$ref": "#/components/schemas/ArticleUpdate"
+            }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Updated article",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Article"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Article"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -134,10 +253,33 @@
             "name": ":id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Deleted article",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Article"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Article"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/articles/{:id}/comments": {
@@ -152,10 +294,41 @@
             "name": ":id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Comment obj",
+            "schema": {
+              "$ref": "#/components/schemas/Comment"
+            }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Created comment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comment"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comment"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/articles/{:articleId}/comments/{:commentId}": {
@@ -170,16 +343,32 @@
             "name": ":articleId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": ":commentId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Comment deleted"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/categories": {
@@ -190,7 +379,23 @@
         "summary": "Get all categories",
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "All categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categories"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categories"
+                }
+              }
+            }
+          }
+        }
       },
       "post": {
         "tags": [
@@ -198,8 +403,38 @@
         ],
         "summary": "Create new category",
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Category obj",
+            "schema": {
+              "$ref": "#/components/schemas/Category"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Create category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/categories/{:id}": {
@@ -214,10 +449,41 @@
             "name": ":id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Category obj",
+            "schema": {
+              "$ref": "#/components/schemas/Category"
+            }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Updated Category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -230,10 +496,24 @@
             "name": ":id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Category deleted"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/comments/latest": {
@@ -247,10 +527,28 @@
           {
             "name": "limit",
             "in": "query",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Latest comments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comments"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comments"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/my": {
@@ -261,7 +559,31 @@
         "summary": "Get user",
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Personal articles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Articles"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Articles"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/my/comments": {
@@ -272,7 +594,31 @@
         "summary": "Get user",
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Personal comments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comments"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comments"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/search": {
@@ -286,10 +632,31 @@
           {
             "name": "query",
             "in": "query",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Found articles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Articles"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Articles"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Empty search string"
+          }
+        }
       }
     },
     "/users": {
@@ -299,8 +666,53 @@
         ],
         "summary": "Create user",
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "User obj",
+            "schema": {
+              "$ref": "#/components/schemas/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Is user created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "example": [
+                    true,
+                    false
+                  ],
+                  "items": {
+                    "type": "boolean"
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "example": [
+                    true,
+                    false
+                  ],
+                  "items": {
+                    "type": "boolean"
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/users/auth": {
@@ -312,22 +724,51 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "Login obj",
             "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
+              "$ref": "#/components/schemas/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tokens with user info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Wrong password"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  }
                 }
               }
             }
           }
-        ],
-        "responses": {}
+        }
       }
     },
     "/users/refresh": {
@@ -337,21 +778,931 @@
         ],
         "summary": "Refresh JWT tokens",
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Tokens with user info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "example": "any"
+                  }
                 }
               }
             }
           }
-        ],
-        "responses": {}
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Article": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "object"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "minLength": {
+                    "type": "number",
+                    "example": 30
+                  },
+                  "maxLength": {
+                    "type": "number",
+                    "example": 250
+                  }
+                }
+              },
+              "createdAt": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "format": {
+                    "type": "string",
+                    "example": "date-time"
+                  }
+                }
+              },
+              "categories": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "array"
+                  },
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "example": "integer"
+                      },
+                      "minimum": {
+                        "type": "number",
+                        "example": 1
+                      }
+                    }
+                  },
+                  "minItems": {
+                    "type": "number",
+                    "example": 1
+                  }
+                }
+              },
+              "announce": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "minLength": {
+                    "type": "number",
+                    "example": 30
+                  },
+                  "maxLength": {
+                    "type": "number",
+                    "example": 250
+                  }
+                }
+              },
+              "fullText": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "maxLength": {
+                    "type": "number",
+                    "example": 1000
+                  }
+                }
+              },
+              "photo": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "object"
+                  },
+                  "properties": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      },
+                      "uniqueName": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "additionalProperties": {
+                    "type": "boolean",
+                    "example": false
+                  }
+                }
+              }
+            }
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "title",
+              "createdAt",
+              "categories",
+              "announce"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": {
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "xml": {
+          "name": "Article"
+        }
+      },
+      "Articles": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "example": "object"
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "minLength": {
+                      "type": "number",
+                      "example": 30
+                    },
+                    "maxLength": {
+                      "type": "number",
+                      "example": 250
+                    }
+                  }
+                },
+                "createdAt": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "format": {
+                      "type": "string",
+                      "example": "date-time"
+                    }
+                  }
+                },
+                "categories": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "array"
+                    },
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "integer"
+                        },
+                        "minimum": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    },
+                    "minItems": {
+                      "type": "number",
+                      "example": 1
+                    }
+                  }
+                },
+                "announce": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "minLength": {
+                      "type": "number",
+                      "example": 30
+                    },
+                    "maxLength": {
+                      "type": "number",
+                      "example": 250
+                    }
+                  }
+                },
+                "fullText": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "maxLength": {
+                      "type": "number",
+                      "example": 1000
+                    }
+                  }
+                },
+                "photo": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "object"
+                    },
+                    "properties": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "example": "string"
+                            }
+                          }
+                        },
+                        "uniqueName": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "example": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "additionalProperties": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            },
+            "required": {
+              "type": "array",
+              "example": [
+                "title",
+                "createdAt",
+                "categories",
+                "announce"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": {
+              "type": "boolean",
+              "example": false
+            }
+          }
+        },
+        "xml": {
+          "name": "Articles"
+        }
+      },
+      "ArticleUpdate": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "object"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "minLength": {
+                    "type": "number",
+                    "example": 30
+                  },
+                  "maxLength": {
+                    "type": "number",
+                    "example": 250
+                  }
+                }
+              },
+              "createdAt": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "format": {
+                    "type": "string",
+                    "example": "date-time"
+                  }
+                }
+              },
+              "categories": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "array"
+                  },
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "example": "integer"
+                      },
+                      "minimum": {
+                        "type": "number",
+                        "example": 1
+                      }
+                    }
+                  },
+                  "minItems": {
+                    "type": "number",
+                    "example": 1
+                  }
+                }
+              },
+              "announce": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "minLength": {
+                    "type": "number",
+                    "example": 30
+                  },
+                  "maxLength": {
+                    "type": "number",
+                    "example": 250
+                  }
+                }
+              },
+              "fullText": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "maxLength": {
+                    "type": "number",
+                    "example": 1000
+                  }
+                }
+              },
+              "photo": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "object"
+                  },
+                  "properties": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      },
+                      "uniqueName": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "additionalProperties": {
+                    "type": "boolean",
+                    "example": false
+                  }
+                }
+              }
+            }
+          },
+          "additionalProperties": {
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "xml": {
+          "name": "ArticleUpdate"
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "object"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "minLength": {
+                    "type": "number",
+                    "example": 5
+                  },
+                  "maxLength": {
+                    "type": "number",
+                    "example": 30
+                  }
+                }
+              }
+            }
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "name"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": {
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "xml": {
+          "name": "Category"
+        }
+      },
+      "Categories": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "example": "object"
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "minLength": {
+                      "type": "number",
+                      "example": 5
+                    },
+                    "maxLength": {
+                      "type": "number",
+                      "example": 30
+                    }
+                  }
+                }
+              }
+            },
+            "required": {
+              "type": "array",
+              "example": [
+                "name"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": {
+              "type": "boolean",
+              "example": false
+            }
+          }
+        },
+        "xml": {
+          "name": "Categories"
+        }
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "object"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "minLength": {
+                    "type": "number",
+                    "example": 20
+                  },
+                  "maxLength": {
+                    "type": "number",
+                    "example": 1000
+                  }
+                }
+              }
+            }
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "text"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": {
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "xml": {
+          "name": "Comment"
+        }
+      },
+      "Comments": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "example": "object"
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "minLength": {
+                      "type": "number",
+                      "example": 20
+                    },
+                    "maxLength": {
+                      "type": "number",
+                      "example": 1000
+                    }
+                  }
+                }
+              }
+            },
+            "required": {
+              "type": "array",
+              "example": [
+                "text"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": {
+              "type": "boolean",
+              "example": false
+            }
+          }
+        },
+        "xml": {
+          "name": "Comments"
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "object"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "format": {
+                    "type": "string",
+                    "example": "email"
+                  }
+                }
+              },
+              "firstName": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "pattern": {
+                    "type": "string",
+                    "example": "[^0-9$&+,:;=?@#| '<>.^*()%!]+$"
+                  }
+                }
+              },
+              "lastName": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "pattern": {
+                    "type": "string",
+                    "example": "[^0-9$&+,:;=?@#| '<>.^*()%!]+$"
+                  }
+                }
+              },
+              "password": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "minLength": {
+                    "type": "number",
+                    "example": 6
+                  }
+                }
+              },
+              "repeatedPassword": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "avatar": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "email",
+              "firstName",
+              "lastName",
+              "password",
+              "repeatedPassword"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": {
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "object"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "format": {
+                    "type": "string",
+                    "example": "email"
+                  }
+                }
+              },
+              "password": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "email",
+              "password"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": {
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "xml": {
+          "name": "Login"
+        }
+      },
+      "Tokens": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "object"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "access": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Access token"
+                  }
+                }
+              },
+              "refresh": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Refresh token"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "Tokens"
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "object"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "tokens": {
+                "xml": {
+                  "name": "tokens"
+                },
+                "$ref": "#/components/schemas/Tokens"
+              },
+              "user": {
+                "xml": {
+                  "name": "user"
+                },
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "LoginResponse"
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

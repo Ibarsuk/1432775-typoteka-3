@@ -23,6 +23,9 @@ module.exports = (app, commentService, articleService) => {
         #swagger.responses[403] = {
             description: "Forbidden",
         }
+        #swagger.security = [{
+               "bearerAuth": []
+        }]
     */
     const myArticles = await articleService.findUserArticles(res.user.id);
     res.status(StatusCode.OK).json(myArticles);
@@ -40,6 +43,9 @@ module.exports = (app, commentService, articleService) => {
         #swagger.responses[403] = {
             description: "Forbidden",
         }
+        #swagger.security = [{
+               "bearerAuth": []
+        }]
     */
     const myComments = await commentService.findAll();
     res.status(StatusCode.OK).json(myComments);

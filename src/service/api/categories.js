@@ -46,6 +46,9 @@ module.exports = (app, categoryService) => {
             description: "Create category",
             schema: { $ref: '#/definitions/Category' }
         }
+        #swagger.security = [{
+               "bearerAuth": []
+        }]
     */
         const newCategory = await categoryService.create(req.body);
         return res.status(StatusCode.CREATED).json(newCategory);
@@ -69,6 +72,9 @@ module.exports = (app, categoryService) => {
             description: "Updated Category",
             schema: { $ref: '#/definitions/Category' }
         }
+        #swagger.security = [{
+               "bearerAuth": []
+        }]
     */
         const {id} = req.params;
         const updatedCategory = await categoryService.update(id, req.body);
@@ -87,6 +93,9 @@ module.exports = (app, categoryService) => {
         #swagger.responses[403] = {
             description: "Forbidden",
         }
+        #swagger.security = [{
+               "bearerAuth": []
+        }]
     */
     const {id} = req.params;
     const isAtLeastOneRelationFound = await categoryService.findOneRelation(id);
