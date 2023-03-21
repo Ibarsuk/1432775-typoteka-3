@@ -77,6 +77,15 @@ const events = {
   }
 };
 
+const filesToDoc = [
+  `articles.js`,
+  `categories.js`,
+  `comments.js`,
+  `my.js`,
+  `search.js`,
+  `users.js`,
+];
+
 module.exports = {
   FRONT_DEFAULT_PORT,
   TIMEOUT,
@@ -94,4 +103,5 @@ module.exports = {
   MockFileName,
   MockСomprisingPath,
   events,
+  filesToDoc,
 };

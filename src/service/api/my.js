@@ -12,11 +12,21 @@ module.exports = (app, commentService, articleService) => {
   route.use(authJwt(Role.ADMIN));
 
   route.get(`/`, async (_req, res) => {
+    /*
+        #swagger.path = '/my'
+        #swagger.tags = ['My']
+        #swagger.summary = 'Get user's articles'
+    */
     const myArticles = await articleService.findUserArticles(res.user.id);
     res.status(StatusCode.OK).json(myArticles);
   });
 
   route.get(`/comments`, async (_req, res) => {
+    /*
+        #swagger.path = '/my/comments'
+        #swagger.tags = ['My']
+        #swagger.summary = 'Get user's comments'
+    */
     const myComments = await commentService.findAll();
     res.status(StatusCode.OK).json(myComments);
   });

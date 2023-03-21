@@ -9,6 +9,11 @@ module.exports = (app, searchService) => {
   app.use(`/search`, route);
 
   route.get(`/`, async (req, res) => {
+    /*
+        #swagger.path = '/search'
+        #swagger.tags = ['Search']
+        #swagger.summary = 'Find article'
+    */
     const {query} = req.query;
 
     if (!query.trim().length) {

@@ -17,11 +17,21 @@ module.exports = (app, usersService, tokensService) => {
   app.use(`/users`, route);
 
   route.post(`/`, validateNewUser(usersService), async (req, res) => {
+    /*
+        #swagger.path = '/users'
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Create user'
+    */
     const isUserCreated = !!(await usersService.create(req.body));
     return res.status(StatusCode.CREATED).send(isUserCreated);
   });
 
   route.post(`/auth`, validateBody(loginSchema), async (req, res) => {
+    /*
+        #swagger.path = '/users/auth'
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Auth with JWT token'
+    */
     const {email, password} = req.body;
 
     const user = await usersService.findByEmail(email);
@@ -51,6 +61,11 @@ module.exports = (app, usersService, tokensService) => {
   });
 
   route.post(`/refresh`, async (req, res) => {
+    /*
+        #swagger.path = '/users/refresh'
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Refresh JWT tokens'
+    */
     let userData;
 
 

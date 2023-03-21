@@ -18,6 +18,11 @@ module.exports = (app, notesService, commentsService) => {
   app.use(`/articles`, route);
 
   route.get(`/`, async (req, res) => {
+    /*
+        #swagger.path = '/articles'
+        #swagger.tags = ['Articles']
+        #swagger.summary = 'Get all articles'
+    */
     const {offset, limit, fromCategoryId} = req.query;
     const notes = await notesService.findAll({
       offset,
@@ -28,6 +33,11 @@ module.exports = (app, notesService, commentsService) => {
   });
 
   route.post(
+      /*
+        #swagger.path = '/articles'
+        #swagger.tags = ['Articles']
+        #swagger.summary = 'Create new article'
+    */
       `/`,
       authJwt(Role.ADMIN),
       validateBody(noteSchema),
@@ -38,6 +48,11 @@ module.exports = (app, notesService, commentsService) => {
   );
 
   route.get(`/commented`, async (req, res) => {
+    /*
+        #swagger.path = '/articles/commented'
+        #swagger.tags = ['Articles']
+        #swagger.summary = 'Get most commented articles'
+    */
     const {limit} = req.query;
     const notes = await notesService.findMostCommented({
       limit,
@@ -46,6 +61,11 @@ module.exports = (app, notesService, commentsService) => {
   });
 
   route.get(
+      /*
+        #swagger.path = '/articles/{:id}'
+        #swagger.tags = ['Articles']
+        #swagger.summary = 'Get article by id'
+    */
       `/:id`,
       [validateParams, checkExistance(notesService)],
       (_req, res) => {
@@ -55,6 +75,11 @@ module.exports = (app, notesService, commentsService) => {
   );
 
   route.put(
+      /*
+        #swagger.path = '/articles/{:id}'
+        #swagger.tags = ['Articles']
+        #swagger.summary = 'Edit article by id'
+    */
       `/:id`,
       [
         authJwt(Role.ADMIN),
@@ -70,6 +95,11 @@ module.exports = (app, notesService, commentsService) => {
   );
 
   route.delete(`/:id`, authJwt(Role.ADMIN), async (req, res) => {
+    /*
+        #swagger.path = '/articles/{:id}'
+        #swagger.tags = ['Articles']
+        #swagger.summary = 'Delete article by id'
+    */
     const {id} = req.params;
     const deletedNote = await notesService.drop(id);
     return res.status(StatusCode.OK).json(deletedNote);
@@ -84,6 +114,11 @@ module.exports = (app, notesService, commentsService) => {
         validateBody(commentSchema),
       ],
       async (req, res) => {
+        /*
+        #swagger.path = '/articles/{:id}/comments'
+        #swagger.tags = ['Articles']
+        #swagger.summary = 'Create comment for article'
+    */
         const {id} = req.params;
         const newComment = await commentsService.create(
             req.body,
@@ -101,6 +136,11 @@ module.exports = (app, notesService, commentsService) => {
       `/:articleId/comments/:commentId`,
       [authJwt(), validateParams, checkExistance(commentsService, `commentId`)],
       async (req, res) => {
+        /*
+        #swagger.path = '/articles/{:articleId}/comments/{:commentId}'
+        #swagger.tags = ['Articles']
+        #swagger.summary = 'Delete comment for article'
+    */
         const {commentId} = req.params;
         const comment = await commentsService.findOne(commentId);
 
