@@ -63,7 +63,7 @@ docker compose -f docker-compose.yml -f docker-compose-prod.yml up --build -d
 The folder structure of this app is explained below:
 
 | Name | Description |
-| ------------------------ |
+| ------------------------ | ------------------------  |
 | **github/workflows**                 | Contains files for github CI/CD actions workflows|
 | **node_modules**         | Contains all  npm dependencies|
 | **data**                  | Contains  examples for test DB entities generation   |
