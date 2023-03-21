@@ -18,3 +18,4 @@ fill-db.sql
 
 # Директория с собранными файлами проекта
 build/
+swagger.json

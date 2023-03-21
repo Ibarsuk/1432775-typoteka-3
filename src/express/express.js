@@ -4,16 +4,14 @@ require(`dotenv`).config();
 const express = require(`express`);
 const cookieParser = require(`cookie-parser`);
 const path = require(`path`);
+const swaggerUi = require(`swagger-ui-express`);
 
-const {
-  StatusCode,
-  FRONT_DEFAULT_PORT,
-  ClientDir,
-} = require(`../const`);
+const {StatusCode, FRONT_DEFAULT_PORT, ClientDir} = require(`../const`);
 const router = require(`./routes`);
 const {getFrontLogger} = require(`../utils/logger`);
 const {NotFoundError, UnauthorizedError} = require(`../utils/exceptions`);
 const pinUserObj = require(`./middlewares/pin-user-obj`);
+const swaggerDocument = require(`../../swagger.json`);
 
 const logger = getFrontLogger({name: `express`});
 
@@ -26,6 +24,14 @@ app.use(pinUserObj);
 
 app.use(router);
 
+app.use(
+    `/docs`,
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument, {
+      explorer: true,
+      openapi: `3.0.0`,
+    })
+);
 app.use(express.static(path.resolve(__dirname, ClientDir.PUBLIC)));
 app.use(express.static(path.resolve(__dirname, ClientDir.UPLOAD)));
 app.set(`views`, path.resolve(__dirname, `templates`));
