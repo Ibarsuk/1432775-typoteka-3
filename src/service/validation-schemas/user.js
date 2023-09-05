@@ -37,7 +37,6 @@ const newUserSchema = Joi.object({
     }),
 
   repeatedPassword: Joi.string()
-    .valid(Joi.ref(`password`))
     .required()
     .messages({
       "any.only": messages.any.only(Field.REPEATED_PASSWORD, Field.PASSWORD),

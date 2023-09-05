@@ -13,7 +13,6 @@ block content
               b(class='publication__list-name') #{`${comment.User.firstName} ${comment.User.lastName}`}
               time(class='publication__item-time' datetime=comment.createdAt) #{formatDate(comment.createdAt, true)}
             a(class='publication__item-text' href=`/articles/${comment.Article.id}`) #{comment.text}
-            p(class='publication__text-strong') #{comment.Article.title}
             a(class='publication__button button button--close-item' type='button' href=`/articles/${comment.Article.id}/comments/delete/${comment.id}`)
               span.visually-hidden Закрыть строку списка
 

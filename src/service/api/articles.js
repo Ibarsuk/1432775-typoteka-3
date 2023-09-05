@@ -47,7 +47,7 @@ module.exports = (app, notesService, commentsService) => {
                 schema: { $ref: '#/definitions/Article' }
         }
         #swagger.responses[200] = {
-            description: "Some description... OpenAPI 3.x",
+            description: "Created article",
             schema: { $ref: '#/definitions/Article' }
         }
         #swagger.security = [{

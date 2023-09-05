@@ -12,7 +12,7 @@ class SearchService {
       attributes: [`id`, `title`, `createdAt`],
       where: {
         title: {
-          [Op.substring]: searchText,
+          [Op.substring]: searchText.toLowerCase(),
         },
       },
       order: [[`createdAt`, `DESC`]],

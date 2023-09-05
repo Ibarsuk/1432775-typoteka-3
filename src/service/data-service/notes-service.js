@@ -87,7 +87,7 @@ class NotesService {
       },
 
       limit,
-      order: [[Sequelize.col(`commentsNumber`), `DESC`]],
+      order: [[Sequelize.col(`commentsNumber`), `ASC`]],
     };
 
     const res = await this._Article.findAll(options);
