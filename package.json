@@ -4,8 +4,8 @@
   "description": "Типотека",
   "main": "./src/service/service.js",
   "scripts": {
-    "start": "concurrently \"npm run start-back\" \"npm run start-front\"",
-    "start::dev": "concurrently --names \"REST,FRONT\" --prefix-colors \"blue,#d925c4\" --kill-others-on-fail \"npm run start-back::dev\" \"npm run start-front::dev\"",
+    "start": "npm run gen-docs && concurrently \"npm run start-back\" \"npm run start-front\"",
+    "start::dev": "npm run gen-docs && concurrently --names \"REST,FRONT\" --prefix-colors \"blue,#d925c4\" --kill-others-on-fail \"npm run start-back::dev\" \"npm run start-front::dev\"",
     "start-back": "cross-env NODE_ENV=production node src/service/service.js --server",
     "start-back::dev": "cross-env NODE_ENV=development nodemon src/service/service.js --server -L",
     "start-front": "cross-env NODE_ENV=production node ./src/express/express.js",
